@@ -1,0 +1,58 @@
+﻿@model TareaViewModel
+
+@{
+    ViewData["Title"] = "Nueva Tarea";
+}
+
+<form asp-controller="Home" asp-action="Nuevo" method="post">
+
+    <fieldset class="border rounded-3 p-3">
+        <legend class="float-none w-auto px-3">Adicionar Tarea</legend>
+
+        <div class="row mb-3">
+            <div class="col-5">
+                <!--
+                    Para la etiqueta label la propiedad asp-for coloca el nombre del atributo, como su texto
+                    Para la etiqueta input text la propiedad asp-for coloca el valor del atributo
+                -->
+                <label asp-for="Titulo" class="form-label"></label>
+                <input type="text" asp-for="Titulo" class="form-control" />
+
+                <!--
+                    Validacion individual a una propiedad del Modelo de la Vista, asp-validation-for
+                -->
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-5">
+                <label asp-for="Descripcion" class="form-label"></label>
+                <input type="text" asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-5">
+                <label asp-for="Estado" class="form-label"></label>
+                <!--
+                    asp-items es la lista de elementos del select o dropdownlist, de tipo SelectListItem
+                    asp-for obtiene el value seleccionado del select o dropdownlist
+                -->
+                <select id="Estado" asp-items="@Model.Estado.EstadosTarea" asp-for="@Model.Estado.ValorSeleccionadoEstadosTarea" class="form-select">
+                    <option value="">Seleccione...</option>
+                </select>
+                <span asp-validation-for="@Model.Estado.ValorSeleccionadoEstadosTarea" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+    
+    </fieldset>
+</form>

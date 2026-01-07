@@ -1,0 +1,52 @@
+﻿@model List<TareaViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Tareas";
+}
+
+<div class="text-center mb-3">
+    <h1>Lista de Tareas</h1>
+</div>
+
+<div class="mb-3">
+    <a asp-controller="Home" asp-action="Nuevo" class="btn btn-success">Nuevo</a>
+</div>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var tarea in Model)
+        {
+            <tr>
+                <td>@tarea.Titulo</td>
+                <td>@tarea.Descripcion</td>
+                <td>@tarea.Estado.TextoSeleccionadoEstadosTarea</td>
+                <td>
+                    <!--
+                        asp-route se utiliza para adicionar un parametro en la url, se coloca un guion,
+                        luego una variable la cual sera el parametro
+                        asp-route-parametro:
+                        https://localhost:7023/Home/Editar/parametro
+                    -->
+                    <a asp-controller="Home" asp-action="Editar" asp-route-id="@tarea.Id" class="btn btn-primary">Editar</a>
+                    <a asp-controller="Home" asp-action="Eliminar" asp-route-id="@tarea.Id" onclick="return eliminarTarea()" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        const eliminarTarea = () => {
+            return confirm("Esta seguro de Eliminar la tarea")
+        }
+    </script>
+}
